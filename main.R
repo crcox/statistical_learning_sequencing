@@ -61,3 +61,26 @@ is_valid_sequence(x$transitions, valid_transitions)
 x$words <- trans2word(x$transitions, valid_transitions)
 
 lapply(x, table)
+
+# create actual list to be used in experiment
+w1 <- c("pi", "tu", "bi")
+w2 <- c("bu", "pa", "da")
+w3 <- c("di", "ba", "pu")
+w4 <- c("ta", "ti", "tu")
+test <- cbind(w1, w2, w3, w4)
+wordinx <- c(1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4)
+wordlist <- data.frame(words=unlist(list(w1, w2, w3, w4)), index=wordinx)
+
+final <- c()
+for (j in x$words){
+
+    for (i in 1:4){
+        final[i] <- wordlist$words[wordlist$index == i]
+
+    }
+
+}
+
+
+
+
