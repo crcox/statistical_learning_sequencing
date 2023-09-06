@@ -6,7 +6,7 @@
 import pandas as pd
 from itertools import chain
 
-# create pandas df and extrapolate indices
+# create pandas df and extract indices
 df = pd.read_csv('indices.csv')
 wordidx = list(df["x"])
 
