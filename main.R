@@ -4,20 +4,20 @@ source("R/suggest_swap.R")
 source("R/trans2word.R")
 source("R/word2trans.R")
 
-valid_transitions <- cbind(combn(1:4, 2), combn(1:4, 2)[c(2,1), ])
+valid_transitions <- cbind(combn(1:4, 2), combn(1:4, 2)[c(2, 1), ])
 n_transition_types <- ncol(valid_transitions)
 transition_id <- seq_len(n_transition_types)
 
 # Sanity check
-all.equal(n_transition_types, choose(4,2) * 2)
+all.equal(n_transition_types, choose(4, 2) * 2)
 
 
 # In a valid sequence of 13 words spanning all 12 possible transitions, three
 # words will be presented 3 times and one word will be presented 4 times.
 valid_sequence <- list(
-    transitions = c(1,4,6,9,2,8,3,11,5,12,10,7)
+    transitions = c(1, 4, 6, 9, 2, 8, 3, 11, 5, 12, 10, 7)
 )
-valid_sequence$words = trans2word(valid_sequence$transitions, valid_transitions)
+valid_sequence$words <- trans2word(valid_sequence$transitions, valid_transitions)
 lapply(valid_sequence, table)
 
 # Behavior on a valid sequence of transitions
@@ -62,25 +62,7 @@ x$words <- trans2word(x$transitions, valid_transitions)
 
 lapply(x, table)
 
-# create actual list to be used in experiment
-w1 <- c("pi", "tu", "bi")
-w2 <- c("bu", "pa", "da")
-w3 <- c("di", "ba", "pu")
-w4 <- c("ta", "ti", "tu")
-test <- cbind(w1, w2, w3, w4)
-wordinx <- c(1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4)
-wordlist <- data.frame(words=unlist(list(w1, w2, w3, w4)), index=wordinx)
-
-final <- c()
-for (j in x$words){
-
-    for (i in 1:4){
-        final[i] <- wordlist$words[wordlist$index == i]
-
-    }
-
-}
-
-
-
-
+# write index to csv
+cudir <- getwd()
+filename <- paste(cudir, "/indices.csv", sep = "")
+write.csv(x$words, filename)
