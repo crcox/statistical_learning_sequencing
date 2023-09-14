@@ -8,7 +8,7 @@ from itertools import chain
 
 # create pandas df and extract indices
 df = pd.read_csv('indices.csv')
-wordidx = list(df["x"])
+wordidx = df["x"]
 
 # word variables
 w1 = ["pi", "tu", "bi"]
@@ -16,11 +16,12 @@ w2 = ["bu", "pa", "da"]
 w3 = ["di", "ba", "pu"]
 w4 = ["ta", "ti", "tu"]
 
+wordset = (w1, w2, w3, w4)
 # create empty list
 wordlist = []
 
 # replace 
-for i in wordidx:
+for i in range(len(wordidx)):
     if wordidx[i] == 1:
         wordlist.append(w1)
     elif wordidx[i] == 2:
