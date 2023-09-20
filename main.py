@@ -5,6 +5,13 @@
 # imports
 import pandas as pd
 from itertools import chain
+import os
+import wave
+import contextlib
+
+_thisDir = os.path.dirname(os.path.abspath(__name__))
+
+x = str(_thisDir + '/filename')
 
 # create pandas df and extract indices
 df = pd.read_csv('indices.csv')
@@ -34,3 +41,30 @@ for i in range(len(wordidx)):
 # unlist and write to csv
 wordlist = pd.DataFrame(list(chain.from_iterable(wordlist)))
 wordlist.to_csv('wordlist.csv')
+
+
+
+
+
+########## getting duration of sounds ##########
+user = os.path.expanduser('~')
+sound_dir = str(f'{user}/Desktop/sounds/')
+sound_files = os.listdir(sound_dir)
+
+#remove .DS_store
+sound_files.remove('.DS_Store')
+print(sound_files)
+
+# add path
+for i in range(len(sound_files)):
+    sound_files[sound_dir + sound_files[i]]
+
+# loop through files and get their lengths
+sound_lens = pd.DataFrame
+
+for i in range(len(sound_files)):
+    with contextlib.closing(wave.open(sound_files[i],'r')) as f:
+        frames = f.getnframes()
+        rate = f.getframerate()
+        duration = frames / float(rate)
+        print(duration)
