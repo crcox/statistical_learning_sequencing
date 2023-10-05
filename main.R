@@ -14,8 +14,12 @@ all.equal(n_transition_types, choose(4, 2) * 2)
 
 # In a valid sequence of 13 words spanning all 12 possible transitions, three
 # words will be presented 3 times and one word will be presented 4 times.
+
+test_transitions <- sample(c(1:12))
+
 valid_sequence <- list(
     transitions = c(1, 4, 6, 9, 2, 8, 3, 11, 5, 12, 10, 7)
+    #transitions = test_transitions
 )
 valid_sequence$words <- trans2word(valid_sequence$transitions, valid_transitions)
 lapply(valid_sequence, table)
@@ -66,3 +70,4 @@ lapply(x, table)
 cudir <- getwd()
 filename <- paste(cudir, "/indices.csv", sep = "")
 write.csv(x$words, filename)
+

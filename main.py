@@ -21,7 +21,7 @@ wordidx = df["x"]
 w1 = ["pi", "tu", "bi"]
 w2 = ["bu", "pa", "da"]
 w3 = ["di", "ba", "pu"]
-w4 = ["ta", "ti", "tu"]
+w4 = ["ta", "ti", "du"]
 
 wordset = (w1, w2, w3, w4)
 # create empty list
@@ -39,8 +39,13 @@ for i in range(len(wordidx)):
         wordlist.append(w4)
 
 # unlist and write to csv
-wordlist = pd.DataFrame(list(chain.from_iterable(wordlist)))
-wordlist.to_csv('wordlist.csv')
+
+word_list1 = wordlist
+word_list2 = wordlist[::-1]
+s_1_wordlist = pd.DataFrame(list(chain.from_iterable(word_list1)))
+s_2_wordlist = pd.DataFrame(list(chain.from_iterable(word_list2)))
+s_1_wordlist.to_csv('/Volumes/WILLUSB/DECKER/exposure/s_1_wordlist.csv')
+s_2_wordlist.to_csv('/Volumes/WILLUSB/DECKER/exposure/s_2_wordlist.csv')
 
 
 
@@ -68,3 +73,22 @@ for i in range(len(sound_files)):
         rate = f.getframerate()
         duration = frames / float(rate)
         print(duration)
+
+
+
+
+###########################
+
+import pandas as pd
+
+mine = pd.read_csv('/Volumes/WILLUSB/DECKER/exposure/s_1_wordlist.csv')
+
+mine['word']
+mine['durs']
+
+x = pd.DataFrame()
+x['word'] = mine['word'][::-1]
+x['durs'] = mine['durs'][::-1]
+
+x.to_csv('/Volumes/WILLUSB/DECKER/exposure/s_2_wordlist.csv')
+
