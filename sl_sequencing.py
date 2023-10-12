@@ -5,7 +5,7 @@ import numpy as np
 import random
 from collections import Counter
 import pandas as pd
-from itertools import permutations
+from itertools import permutations, chain
 
 def get_random_except(excluded_numbers, numbers):
     """Return a random number from the second list, excluding numbers in the given first list."""
@@ -154,7 +154,7 @@ class Sequence:
         d = pd.DataFrame(self.valid_sequence)
         d.to_csv(filename)
 
-    def match(self, inpt):
+    def match(self, inpt, unlist=False):
         '''Match/replace indices with a specific value to a corresponding value
         
         Parameters
@@ -162,6 +162,9 @@ class Sequence:
         inpt: dict
             Input dictionary. Keys represent current observances in indices, values are what you
             wish to replace the indices with. 
+
+        unlist: bool, default: False
+            If you are inputing a nested dictionary and wish to unlist
 
         Example
         -------
@@ -186,6 +189,10 @@ class Sequence:
             for i in self.inpt:
                 if i == j:
                     match_sequence.append(self.inpt[i])
+
+        # unlist if necessary
+        if unlist == True:
+            match_sequence = list(chain.from_iterable(match_sequence))
 
         self.match_sequence = match_sequence
         return self
